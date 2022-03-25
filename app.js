@@ -58,15 +58,7 @@ const Assignment = sequelize.define(
 
 app.post("/api/create", async (req, res) => {
   // You have to pass dynamic
-  // const body = req.body;
 
-  // const user = new User({
-  //   name: body.name,
-  //   active: body.active,
-  //   mobile: body.mobile,
-  //   age: body.age,
-  //   place: body.place,
-  // });
   try {
     const body = req.body;
     const subject = await Assignment.create({
@@ -81,16 +73,6 @@ app.post("/api/create", async (req, res) => {
 });
 
 app.put("/api/update/:name", async (req, res) => {
-  // You have to pass dynamic
-  // const body = req.body;
-
-  // const user = new User({
-  //   name: body.name,
-  //   active: body.active,
-  //   mobile: body.mobile,
-  //   age: body.age,
-  //   place: body.place,
-  // });
   try {
     const id = req.params.name;
     const body = req.body;
