@@ -94,9 +94,9 @@ app.put("/api/update/:name", async (req, res) => {
   try {
     const id = req.params.name;
     const body = req.body;
-    const subject = await Assignment.update(
+    const subject = await Assignment.updateOne(
       { name: id },
-      { $set: { name: body.name } }
+      { $set: { name: body.name, subject: body.subject } }
     );
 
     res.json({ message: "update success", data: subject });
