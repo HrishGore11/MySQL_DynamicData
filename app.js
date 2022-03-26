@@ -72,16 +72,31 @@ app.post("/api/create", async (req, res) => {
   }
 });
 
-app.put("/api/update/:name", async (req, res) => {
+app.put("/api/update/:id", async (req, res) => {
   try {
-    const id = req.params.name;
     const body = req.body;
-    const subject = await Assignment.updateOne(
-      { name: id },
-      { $set: { name: body.name, subject: body.subject } }
+    const subject = await Assignment.update(
+      { name: body.name, subject: body.subject },
+      {
+        where: {
+          id: req.params.id,
+        },
+      }
     );
-
     res.json({ message: "update success", data: subject });
+  } catch (err) {
+    res.json({ message: "Error", data: err });
+  }
+});
+
+app.delete("/api/delete/:id", async (req, res) => {
+  try {
+    const subject = await Assignment.destroy({
+      where: {
+        id: req.params.id,
+      },
+    });
+    res.json({ message: "delete success", data: subject });
   } catch (err) {
     res.json({ message: "Error", data: err });
   }
@@ -91,7 +106,8 @@ app.get("/api/getAll", async (req, res) => {
   try {
     const subject = await Assignment.findAll();
 
-    res.json({ message: "Success", data: subject });
+    res.render("temp", { data: subject, heading: "Assignments" });
+    // res.json({ message: "Success", data: subject });
   } catch (err) {
     res.json({ message: "Error", data: err });
   }
